@@ -1,0 +1,140 @@
+/* Design tokens and basic controls (the colour tokens are TextCache's). */
+
+:root {
+    color-scheme: light dark;
+    --bg: #eef2f6;
+    --surface: #ffffff;
+    --surface-hover: #f4f7fa;
+    --ink: #17212c;
+    --muted: #4f5d6c;
+    --line: #d5dde6;
+    --accent: #1d5fa3;
+    --accent-ink: #ffffff;
+    --accent-soft: #e3edf8;
+    --danger: #b3261e;
+    --warn: #8a5a00;
+    --ok: #1e7a3c;
+    --focus: #1d5fa3;
+    --radius: 8px;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #11161c;
+        --surface: #1a2129;
+        --surface-hover: #212a34;
+        --ink: #e5ebf1;
+        --muted: #a2afbc;
+        --line: #2e3844;
+        --accent: #79aef0;
+        --accent-ink: #0d1825;
+        --accent-soft: #1d2b3b;
+        --danger: #ff8a80;
+        --warn: #f2c14e;
+        --ok: #6fd28f;
+        --focus: #9cc4f5;
+    }
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html, body {
+    background: var(--bg);
+}
+
+body {
+    margin: 0;
+    color: var(--ink);
+    font: 14px/1.45 var(--font);
+}
+
+button, input, select {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background: var(--surface-hover);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+}
+
+button.primary:hover:not(:disabled) {
+    background: var(--accent);
+    filter: brightness(1.08);
+}
+
+input:not([type]), input[type="text"], input[type="number"], select {
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+input[aria-invalid="true"] {
+    border-color: var(--danger);
+    outline: 1px solid var(--danger);
+}
+
+:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+}
+
+.status {
+    position: fixed;
+    inset-inline-end: 16px;
+    bottom: 16px;
+    margin: 0;
+    padding: 8px 14px;
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: var(--bg);
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.status.is-visible {
+    opacity: 1;
+}
+
+.status.is-error {
+    background: var(--danger);
+    color: #fff;
+}
+
+.load-error {
+    margin: 16px;
+    padding: 12px 16px;
+    border: 1px solid var(--danger);
+    border-radius: var(--radius);
+    color: var(--danger);
+    background: var(--surface);
+}

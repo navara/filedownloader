@@ -1,0 +1,8 @@
+{
+    "manifest_version": 3,
+    "name": "FD test helper",
+    "version": "0.0.1",
+    "description": "Loaded beside File Downloader by test/e2e.cjs only: observes the download UI setting and disables or enables the extension.",
+    "permissions": ["downloads", "downloads.ui", "management"],
+    "background": { "service_worker": "worker.js", "type": "module" }
+}

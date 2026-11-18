@@ -1,0 +1,18 @@
+{
+  "name": "filedownloader",
+  "version": "1.0.0",
+  "private": true,
+  "description": "File Downloader, a Chrome extension that lists the links on a page and downloads the chosen ones; loaded unpacked from extension/",
+  "license": "GPL-3.0-or-later",
+  "repository": "github:navara/filedownloader",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"test/unit/*.test.js\"",
+    "test:e2e": "node test/e2e.cjs",
+    "playground": "node test/playground/serve.cjs",
+    "pack": "node tools/pack.cjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}

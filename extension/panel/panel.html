@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title data-i18n="ext_name">File Downloader</title>
+    <link rel="stylesheet" href="../ui/base.css">
+    <link rel="stylesheet" href="panel.css">
+    <script type="module" src="panel.js"></script>
+</head>
+<body>
+    <header class="bar">
+        <nav class="tabs" role="tablist">
+            <button id="tabSelect" role="tab" aria-selected="true" aria-controls="viewSelect"></button>
+            <button id="tabDownloads" role="tab" aria-selected="false" aria-controls="viewDownloads"></button>
+        </nav>
+        <p id="pageInfo" class="page-info" dir="auto"></p>
+    </header>
+
+    <p id="loadError" class="load-error" role="alert" hidden></p>
+
+    <main>
+        <section id="viewSelect" role="tabpanel" aria-labelledby="tabSelect">
+            <p id="scanNote" class="note" hidden></p>
+            <div class="filters">
+                <div class="filter">
+                    <label for="fText" data-i18n="filter_text"></label>
+                    <input id="fText" type="text" spellcheck="false" aria-describedby="fTextError">
+                    <label class="regex"><input id="fTextRe" type="checkbox"><span data-i18n="regex_toggle" data-i18n-title="regex_title"></span></label>
+                    <span id="fTextError" class="field-error" role="alert"></span>
+                </div>
+                <div class="filter">
+                    <label for="fUrl" data-i18n="filter_url"></label>
+                    <input id="fUrl" type="text" spellcheck="false" aria-describedby="fUrlError">
+                    <label class="regex"><input id="fUrlRe" type="checkbox"><span data-i18n="regex_toggle" data-i18n-title="regex_title"></span></label>
+                    <span id="fUrlError" class="field-error" role="alert"></span>
+                </div>
+                <div class="row kinds">
+                    <span data-i18n="show_label"></span>
+                    <label><input id="kLink" type="checkbox" checked> <span data-i18n="kinds_link"></span></label>
+                    <label><input id="kImage" type="checkbox" checked> <span data-i18n="kinds_image"></span></label>
+                    <label><input id="kMedia" type="checkbox" checked> <span data-i18n="kinds_media"></span></label>
+                    <span class="types-label" data-i18n="types_label"></span>
+                    <span id="chips" class="chips"></span>
+                </div>
+            </div>
+            <p id="capNotice" class="note" hidden></p>
+            <div class="table-wrap">
+                <table class="items">
+                    <thead>
+                        <tr>
+                            <th class="col-pick"><input type="checkbox" id="pickAll" data-i18n-aria-label="pick_all"></th>
+                            <th data-i18n="col_text"></th>
+                            <th data-i18n="col_address"></th>
+                            <th data-i18n="col_type"></th>
+                            <th data-i18n="col_kind"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="items"></tbody>
+                </table>
+                <p id="emptyList" class="empty" data-i18n="empty_list" hidden></p>
+            </div>
+            <div class="row counter-row">
+                <p id="counter" class="counter"></p>
+                <button id="selectShown" data-i18n="select_shown"></button>
+                <button id="clearSelection" data-i18n="clear_selection"></button>
+            </div>
+            <div class="row rule-row">
+                <label><span data-i18n="folder_label"></span> <input id="folderTpl" spellcheck="false" maxlength="200"
+                    aria-describedby="folderTplError"></label>
+                <span id="folderTplError" class="field-error" role="alert"></span>
+                <label><span data-i18n="name_label"></span> <input id="nameTpl" spellcheck="false" maxlength="200"
+                    aria-describedby="nameTplError"></label>
+                <span id="nameTplError" class="field-error" role="alert"></span>
+                <label><span data-i18n="conflict_label"></span>
+                    <select id="conflict">
+                        <option value="uniquify" data-i18n="conflict_uniquify"></option>
+                        <option value="overwrite" data-i18n="conflict_overwrite"></option>
+                    </select>
+                </label>
+            </div>
+            <div class="row settings-row">
+                <label><span data-i18n="settings_parallel"></span>
+                    <input id="selParallel" type="number" min="1" max="10" step="1" aria-describedby="selParallelError"></label>
+                <span id="selParallelError" class="field-error" role="alert"></span>
+                <label><span data-i18n="settings_retries"></span>
+                    <input id="selRetries" type="number" min="0" max="5" step="1" aria-describedby="selRetriesError"></label>
+                <span id="selRetriesError" class="field-error" role="alert"></span>
+            </div>
+            <p class="hint" data-i18n="tokens_hint"></p>
+            <div class="row action-row">
+                <div class="preview-box">
+                    <span data-i18n="preview_label"></span>
+                    <ul id="preview" class="preview"></ul>
+                </div>
+                <button id="queue" disabled data-i18n-title="queue_title"></button>
+                <button id="download" class="primary" disabled></button>
+            </div>
+        </section>
+
+        <section id="viewDownloads" role="tabpanel" aria-labelledby="tabDownloads" hidden>
+            <div class="row all-row">
+                <button id="allStart" data-i18n="all_start" disabled></button>
+                <button id="allPause" data-i18n="all_pause" disabled></button>
+            </div>
+            <p id="noJobs" class="empty" data-i18n="no_jobs" hidden></p>
+            <div id="jobs"></div>
+            <div class="row settings-row">
+                <label><span data-i18n="settings_parallel"></span>
+                    <input id="parallel" type="number" min="1" max="10" step="1" aria-describedby="parallelError"></label>
+                <span id="parallelError" class="field-error" role="alert"></span>
+                <label><span data-i18n="settings_retries"></span>
+                    <input id="retries" type="number" min="0" max="5" step="1" aria-describedby="retriesError"></label>
+                <span id="retriesError" class="field-error" role="alert"></span>
+            </div>
+        </section>
+    </main>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+</body>
+</html>

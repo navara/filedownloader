@@ -1,0 +1,8 @@
+CLAUDE.md
+STATE.md
+STATE/
+STOP
+node_modules/
+.superpowers/
+.worktrees/
+dist/
